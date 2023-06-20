@@ -53,7 +53,7 @@ if not args.only_eval:
     config = config.update(configs)
     baseline = pathlib.Path(args.json).stem
   else:
-    baseline = "DreamerBC"
+    baseline = "Efficient-Dreamer"
 
 
   _env_name = args.robot+"-"+args.platform+"-"+args.arm+"-"+ args.preprocess_type+"-"+args.image_type+"-prefill"+str(args.prefill)+"-clutch"+str(args.clutch) 
