@@ -31,10 +31,6 @@ from common import JSONLOutput
 from common import TensorBoardOutput
 from tqdm import tqdm
 
-configs = yaml.safe_load(
-    (pathlib.Path(__file__).parent / 'configs.yaml').read_text())
-defaults = common.Config(configs.pop('defaults'))
-
 import tensorflow as tf
 for gpu in tf.config.experimental.list_physical_devices('GPU'):
     tf.config.experimental.set_memory_growth(gpu, True)
