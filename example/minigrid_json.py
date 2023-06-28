@@ -12,7 +12,7 @@ parser.add_argument('--section', type=int, default=1)
 parser.add_argument('--seed', type=int, default=0)
 parser.add_argument('--debug', action='store_true')
 parser.add_argument('--env', type=str, default="MiniGrid-DoorKey-6x6-v0")
-parser.add_argument('--default-json', type=str, default="./examples/jsons/minigrid/default_minigrid.yaml")
+parser.add_argument('--default-json', type=str, default="./example/jsons/minigrid/default_minigrid.yaml")
 parser.add_argument('--bc', type=str, default="")
 
 args = parser.parse_args()

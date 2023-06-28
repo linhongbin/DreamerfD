@@ -1,1 +1,1 @@
-GYM_SUTURE_PATH="/home/ben/code/robot/gym-suture"
+GYM_SUTURE_PATH="${HOME}/ssd/code/robot/release/gym-suture"
