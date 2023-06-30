@@ -1,22 +1,18 @@
 action_repeat: 1
 actor: {act: elu, dist: auto, layers: 4, min_std: 0.1, norm: none, units: 400}
-actor_ent: 2e-03
+actor_ent: 0.002
 actor_grad: auto
 actor_grad_mix: 0.1
-<<<<<<< Updated upstream
-actor_grad_weight: 1.0
-=======
 actor_grad_weight: 0.2
->>>>>>> Stashed changes
 actor_opt: {clip: 100, eps: 1e-05, lr: 2e-05, opt: adam, wd: 1e-06}
 actor_type: ActorCritic
 atari_grayscale: true
 bc_agent_retrain: true
-bc_wm_retrain: true
-bc_dir: ./data/suture/needle_picking/ambf/dream2suture/train_episodes/oracle
+bc_dir: ''
 bc_grad_weight: 1.0
 bc_loss: true
 bc_skip_start_step_num: 2
+bc_wm_retrain: true
 clip_rewards: identity
 critic: {act: elu, dist: mse, layers: 4, norm: none, units: 400}
 critic_opt: {clip: 100, eps: 1e-05, lr: 4e-05, opt: adam, wd: 1e-06}
@@ -53,7 +49,7 @@ eval_every: 2000.0
 eval_noise: 0.0
 eval_state_mean: false
 eval_success_reward: 0.99
-eval_video_every: 2e4
+eval_video_every: 20000.0
 expl_behavior: greedy
 expl_extr_scale: 0.0
 expl_head: {act: elu, dist: mse, layers: 4, norm: none, units: 400}
@@ -76,10 +72,11 @@ log_keys_max: ^$
 log_keys_mean: ^$
 log_keys_sum: ^$
 log_keys_video: [image]
-logdir: ./data/suture/needle_picking/ambf/dream2suture
+logdir: data/minigrid/NeedlePick-v0/Efficient-Dreamer/1
 loss_scales: {discount: 1.0, kl: 1.0, proprio: 1.0, reward: 1.0}
-model_opt: {clip: 100, eps: 1e-05, lr: 2e-4, opt: adam, wd: 1e-06}
+model_opt: {clip: 100, eps: 1e-05, lr: 0.0002, opt: adam, wd: 1e-06}
 offline_step: 20000000
+planner: {type: none}
 precision: 16
 pred_discount: true
 prefill: 8000
@@ -110,4 +107,3 @@ train_mcts_n_playout: 20
 train_only_wm_steps: 0
 train_seq_buffer: 1000
 train_steps: 100
-planner: {type: none}

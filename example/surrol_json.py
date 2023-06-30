@@ -1,8 +1,8 @@
 import gym
-import gym_minigrid
+import surrol.gym
+from gym_suture.env.surrol_wrapper import ImageObs
 from efficient_dreamer import common
 import efficient_dreamer.api_other as dv2
-from gym.spaces import Dict
 import argparse
 import ruamel.yaml as yaml
 import pathlib
@@ -11,8 +11,8 @@ parser.add_argument('--json', type=str, default="")
 parser.add_argument('--section', type=int, default=1) 
 parser.add_argument('--seed', type=int, default=0)
 parser.add_argument('--debug', action='store_true')
-parser.add_argument('--env', type=str, default="MiniGrid-DoorKey-6x6-v0")
-parser.add_argument('--default-json', type=str, default="./example/jsons/minigrid/default_minigrid.yaml")
+parser.add_argument('--env', type=str, default="NeedlePick-v0")
+parser.add_argument('--default-json', type=str, default="./example/jsons/surrol/default.yaml")
 parser.add_argument('--bc', type=str, default="")
 
 args = parser.parse_args()
@@ -37,8 +37,7 @@ config = config.update({
 'seed': args.seed,
 'jit': not args.debug,
                   })
-
 env = gym.make(args.env)
-env = gym_minigrid.wrappers.RGBImgPartialObsWrapper(env)
-env.observation_space = Dict({k:v for k,v in env.observation_space.items() if k != 'mission'})
+env.reset()
+env = ImageObs(env)
 dv2.train(env, config,time_limit=config.time_limit, bc_dir=args.bc)
