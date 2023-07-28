@@ -36,3 +36,6 @@ For more information:
     pip install tensorflow==2.9.0 tensorflow_probability==0.17.0 protobuf==3.20.1
     pip install -e .
     ```
+## Training and Evaluation
+
+    For needle picking tasks, please refer to [gym_np.md](doc/gym_np.md)
