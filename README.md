@@ -38,4 +38,4 @@ For more information:
     ```
 ## Training and Evaluation
 
-    For needle picking tasks, please refer to [gym_np.md](doc/gym_np.md)
+For needle picking tasks, please refer to [gym_np.md](doc/gym_np.md)
