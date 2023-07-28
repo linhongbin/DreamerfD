@@ -10,8 +10,9 @@ setuptools.setup(
     long_description_content_type='text/markdown',
     packages=['dreamer_fd', 'dreamer_fd.common'],
     install_requires=[
-         'ruamel.yaml',
-        'tensorflow', 'tensorflow_probability'
+        'ruamel.yaml',
+        'tensorflow', 
+        'tensorflow_probability'
         ],
     classifiers=[
         'Intended Audience :: Science/Research',
