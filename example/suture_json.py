@@ -1,10 +1,10 @@
 from gym_suture.env.wrapper import GymSutureEnv
-import efficient_dreamer.api as dv2
-import efficient_dreamer.api_eval as dv2_eval
+import dreamer_fd.api as dv2
+import dreamer_fd.api_eval as dv2_eval
 
 from pathlib import Path
 import ruamel.yaml as yaml
-from efficient_dreamer import common
+from dreamer_fd import common
 import pathlib
 import argparse
 
@@ -53,7 +53,7 @@ if not args.only_eval:
     config = config.update(configs)
     baseline = pathlib.Path(args.json).stem
   else:
-    baseline = "Efficient-Dreamer"
+    baseline = "DreamerfD"
 
 
   _env_name = args.robot+"-"+args.platform+"-"+args.arm+"-"+ args.preprocess_type+"-"+args.image_type+"-prefill"+str(args.prefill)+"-clutch"+str(args.clutch) 

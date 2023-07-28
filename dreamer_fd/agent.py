@@ -17,7 +17,7 @@ class Agent(common.Module):
     if config.actor_type == "ActorCritic":
       self._task_behavior = ActorCritic(config, self.act_space, self.tfstep)
     elif config.actor_type == "AlphaZero":
-      from efficient_dreamer import mcts
+      from dreamer_fd import mcts
       self._task_behavior = mcts.AlphaZero(config, self.act_space, self.tfstep)
     else:
       raise NotImplementedError

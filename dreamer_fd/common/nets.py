@@ -6,7 +6,7 @@ from tensorflow.keras import layers as tfkl
 from tensorflow_probability import distributions as tfd
 from tensorflow.keras import mixed_precision as prec
 
-from efficient_dreamer import common
+from dreamer_fd import common
 
 
 class EnsembleRSSM(common.Module):

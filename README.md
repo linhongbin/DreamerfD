@@ -30,8 +30,8 @@ For more information:
 
 - Install Dependencies with GPU support
     ```sh
-    conda create -n efficient_dreamer python=3.7
-    conda activate efficient_dreamer
+    conda create -n dreamer_fd python=3.7
+    conda activate dreamer_fd
     conda install cudatoolkit=11.3 -c pytorch
     pip install tensorflow==2.9.0 tensorflow_probability==0.17.0
     conda install cudnn=8.2 -c anaconda

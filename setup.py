@@ -3,12 +3,12 @@ import pathlib
 
 
 setuptools.setup(
-    name='efficient_dreamer',
+    name='dreamer_fd',
     version='2.2.0',
-    description='Mastering Atari with Discrete World Models',
+    description='Dreamer from Demonstration',
     long_description=pathlib.Path('README.md').read_text(),
     long_description_content_type='text/markdown',
-    packages=['efficient_dreamer', 'efficient_dreamer.common'],
+    packages=['dreamer_fd', 'dreamer_fd.common'],
     install_requires=[
          'ruamel.yaml',
         'tensorflow', 'tensorflow_probability'
@@ -17,7 +17,6 @@ setuptools.setup(
         'Intended Audience :: Science/Research',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
-        'Topic :: Games/Entertainment',
         'Topic :: Scientific/Engineering :: Artificial Intelligence',
     ],
 )
