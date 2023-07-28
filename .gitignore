@@ -6,4 +6,5 @@
 ./log
 dreamer_fd.egg-info/
 
-data/
+*.pdf
+

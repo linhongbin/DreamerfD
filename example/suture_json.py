@@ -1,6 +1,6 @@
 from gym_suture.env.wrapper import GymSutureEnv
-import dreamer_fd.api as dv2
-import dreamer_fd.api_eval as dv2_eval
+import dreamer_fd.train_suture as dv2
+import dreamer_fd.eval_suture as dv2_eval
 
 from pathlib import Path
 import ruamel.yaml as yaml

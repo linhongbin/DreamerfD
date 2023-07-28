@@ -1,7 +1,7 @@
 import gym
 import gym_minigrid
 from dreamer_fd import common
-import dreamer_fd.api_other as dv2
+import dreamer_fd.train as dv2
 from gym.spaces import Dict
 import argparse
 import ruamel.yaml as yaml

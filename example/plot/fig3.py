@@ -9,11 +9,11 @@ plt.rcParams.update({'font.size': 20})
 #========================================
 parser = argparse.ArgumentParser()
 parser.add_argument('--csv1', type=str,
-                    default="./data/exp/robustness/noise_0/eval_result_20230223-174501.csv")
+                    default="./example/plot/data/robustness/noise_0/eval_result_20230223-174501.csv")
 parser.add_argument('--csv2', type=str, 
-                    default="./data/exp/robustness/noise_0_1/eval_result_20230301-211737.csv")
+                    default="./example/plot/data/robustness/noise_0_1/eval_result_20230301-211737.csv")
 parser.add_argument('--csv3', type=str,
-                    default="./data/exp/robustness/noise_0_5/eval_result_20230301-213152.csv")
+                    default="./example/plot/data/robustness/noise_0_5/eval_result_20230301-213152.csv")
 parser.add_argument('--width', type=int, default=0.8)
 
 parser.add_argument('--show', action="store_true")
@@ -51,7 +51,7 @@ ax=plt.gca()  #gca:get current axis得到当前轴
 ax.set_ylim([0, 1])
 plt.text(-0.15,0.93,'Train',{'fontsize':18}, color = "tab:blue", )
 plt.text(1.3, 0.93, 'Transfer', {'fontsize': 18}, color="tab:blue",)
-plt.savefig("./data/exp/robustness_performance.pdf",bbox_inches='tight')
+plt.savefig("./robustness_performance.pdf",bbox_inches='tight')
 if args.show:
     plt.show()
 # plt.show()

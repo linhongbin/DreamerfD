@@ -7,13 +7,13 @@ from matplotlib.pyplot import figure
 # plt.rcParams.update({'font.size': 20})
 #========================================
 parser = argparse.ArgumentParser()
-parser.add_argument('--csv1', type=str, default="./data/exp/ablation/csv/run-01-no-bc-tag-scalars_train_return.csv")
-parser.add_argument('--csv2', type=str, default="./data/exp/ablation/csv/run-02-no_actor_grad-tag-scalars_train_return.csv")
-parser.add_argument('--csv3', type=str, default="./data/exp/ablation/csv/run-03-no_DSA-tag-scalars_train_return.csv")
-parser.add_argument('--csv4', type=str, default="./data/exp/ablation/csv/run-04-no_virtual_clutch-tag-scalars_train_return.csv")
-parser.add_argument('--csv5', type=str, default="./data/exp/ablation/csv/run-05-ours-tag-scalars_train_return.csv")
+parser.add_argument('--csv1', type=str, default="./example/plot/data/ablation/csv/run-01-no-bc-tag-scalars_eval_sucess_eps_filter_rate.csv")
+parser.add_argument('--csv2', type=str, default="./example/plot/data/ablation/csv/run-02-no_actor_grad-tag-scalars_eval_sucess_eps_filter_rate.csv")
+parser.add_argument('--csv3', type=str, default="./example/plot/data/ablation/csv/run-03-no_DSA-tag-scalars_eval_sucess_eps_filter_rate.csv")
+parser.add_argument('--csv4', type=str, default="./example/plot/data/ablation/csv/run-04-no_virtual_clutch-tag-scalars_eval_sucess_eps_filter_rate.csv")
+parser.add_argument('--csv5', type=str, default="./example/plot/data/ablation/csv/run-05-ours-tag-scalars_eval_sucess_eps_filter_rate.csv")
 parser.add_argument('--linewidth', type=int, default=4)
-parser.add_argument('--smooth', type=int, default=0.99)
+parser.add_argument('--smooth', type=int, default=0.3)
 parser.add_argument('--maxstep', type=int, default=140000)
 parser.add_argument('--show', action="store_true")
 args = parser.parse_args()
@@ -54,21 +54,23 @@ def plot_line(_df, label, linewidth, color):
     plt.plot(_df["Step"], _df["Value"],linewidth=args.linewidth*0.8, color=lighten_color(color,amount=1.5), alpha=0.1)
     plt.plot(_df["Step"], _df["smooth"], label=label,linewidth=args.linewidth, color=lighten_color(color,amount=0.5), alpha=1)
 
-plot_line(df1, "Dreamer", args.linewidth, color='tab:purple')
-plot_line(df2, "BC", args.linewidth, color='tab:orange')
-# plot_line(df3, "No DSA", args.linewidth, color='tab:green')
-# plot_line(df4, "No Virtual Clutch", args.linewidth, color='tab:red')
+plot_line(df1, "No BC", args.linewidth, color='tab:purple')
+plot_line(df2, "No Actor Grad", args.linewidth, color='tab:orange')
+plot_line(df3, "No DSA", args.linewidth, color='tab:green')
+plot_line(df4, "No Virtual Clutch", args.linewidth, color='tab:red')
 plot_line(df5, "Ours", args.linewidth, color='tab:blue')
 
 plt.ticklabel_format(style='sci', axis='x',scilimits=(0,4))
 plt.legend(loc='upper center', bbox_to_anchor=(0.5, 1.15),
           ncol=3, fancybox=True, shadow=True)
 plt.xlabel("Timestep")
-plt.ylabel("Average Training Return")
+plt.ylabel("Success Rate")
 
 
-plt.savefig("./data/exp/ablation_return_2.pdf",bbox_inches='tight')
+plt.savefig("./ablation_success_rate.pdf",bbox_inches='tight')
 if args.show:
     plt.show()
 # print(df1)
 # print(df2)
+
+
