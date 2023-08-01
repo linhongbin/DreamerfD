@@ -23,18 +23,27 @@ For more information:
 - [Project Website](https://sites.google.com/view/dreamerfd/home)
 
 
-
 ## Install
 
-- Install by Anaconda:
+- Download
+  ```sh
+  cd ~
+  git clone https://github.com/linhongbin/DreamerfD
+  ```
+
+- Install by Anaconda virtual environment:
   
     ```sh
-    conda create -n dreamer_fd python=3.7
+    source ~/anaconda3/bin/activate
+    conda create -n dreamer_fd python=3.7 -y
     conda activate dreamer_fd
-    conda install cudatoolkit=11.3 -c pytorch
-    conda install cudnn=8.2 cudatoolkit=11.3 -c anaconda
     pip install tensorflow==2.9.0 tensorflow_probability==0.17.0 protobuf==3.20.1
+    cd ~/DreamerfD
     pip install -e .
+
+- Install additional GPU support
+    ```sh
+    conda install cudnn=8.2 cudatoolkit=11.3 -c anaconda -y
     ```
 ## Training and Evaluation
 
