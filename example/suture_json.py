@@ -1,4 +1,4 @@
-from gym_suture.env.wrapper import GymSutureEnv
+from gym_np.env.wrapper import GymSutureEnv
 import dreamer_fd.train_suture as dv2
 import dreamer_fd.eval_suture as dv2_eval
 
@@ -12,7 +12,7 @@ import argparse
 parser = argparse.ArgumentParser()
 # RL related
 parser.add_argument('--json', type=str, default="")
-parser.add_argument('--default-json', type=str, default="./examples/jsons/default_np.yaml")
+parser.add_argument('--default-json', type=str, default="./example/jsons/suture_np/default_np.yaml")
 parser.add_argument('--section', type=int, default=1)
 parser.add_argument('--seed', type=int, default=0)
 parser.add_argument('--eval-eps', type=int, default=20)
@@ -21,7 +21,7 @@ parser.add_argument('--only-datagen', action='store_true')
 parser.add_argument('--only-eval', action='store_true')
 parser.add_argument('--prefill', type=int, default=8000) # <0 means following default settings
 parser.add_argument('--timelimit', type=int, default=-1) # <0 means consistent with config file
-parser.add_argument('--logdir', type=str, default="'./data/suture/needle_picking'")
+parser.add_argument('--logdir', type=str, default="./log/suture_np")
 
 
 # env related

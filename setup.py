@@ -12,7 +12,8 @@ setuptools.setup(
     install_requires=[
         'ruamel.yaml',
         'tensorflow', 
-        'tensorflow_probability'
+        'tensorflow_probability',
+        'pandas',
         ],
     classifiers=[
         'Intended Audience :: Science/Research',

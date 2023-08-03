@@ -48,3 +48,17 @@ For more information:
 ## Training and Evaluation
 
 For needle picking tasks, please refer to [gym_np.md](doc/gym_np.md)
+
+
+## Citation
+
+```
+@misc{lin2023endtoend,
+      title={End-to-End Learning of Deep Visuomotor Policy for Needle Picking}, 
+      author={Hongbin Lin and Bin Li and Xiangyu Chu and Qi Dou and Yunhui Liu and Kwok Wai Samuel Au},
+      year={2023},
+      eprint={2303.03675},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO}
+}
+```
