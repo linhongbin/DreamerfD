@@ -1,8 +1,8 @@
 import tensorflow as tf
 from tensorflow.keras import mixed_precision as prec
 
-import common
-import expl
+from dreamer_fd import common
+from dreamer_fd import expl
 import time
 
 class Agent(common.Module):
@@ -317,12 +317,13 @@ class ActorCritic(common.Module):
     else:
       self.rewnorm = common.StreamNorm(**self.config.reward_norm)
     
-    import plan
+    
     if config.planner.type=='none':
       self.planner = None 
     else:
       name = config.planner.type
       args = {k: v for k, v in config.planner.items() if k!="type"}
+      from dreamer_fd import plan
       func_call = getattr(plan, name)
       self.planner = func_call(act_space, **args)
 
