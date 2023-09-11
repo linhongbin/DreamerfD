@@ -78,7 +78,8 @@ class Agent(common.Module):
     metrics.update(mets)
     
     if bc_data is not None and self.config.bc_wm_retrain:
-      bc_state, bc_outputs, bc_mets = self.wm.train(bc_data, _bc_state if self.config.train_carrystate else None)
+      bc_wm_weight = common.schedule(self.config.bc_wm_weight, self.tfstep)
+      bc_state, bc_outputs, bc_mets = self.wm.train(bc_data, _bc_state if self.config.train_carrystate else None, bc_wm_weight=bc_wm_weight)
       bc_mets = {'bc_retrain_' + k: v for k, v in bc_mets.items()}
       metrics.update(bc_mets)
     # if self.tfstep > self.config.train_only_wm_steps or force: 
@@ -148,9 +149,10 @@ class WorldModel(common.Module):
       assert name in self.heads, name
     self.model_opt = common.Optimizer('model', **config.model_opt)
 
-  def train(self, data, state=None):
+  def train(self, data, state=None,bc_wm_weight=1):
     with tf.GradientTape() as model_tape:
       model_loss, state, outputs, metrics = self.loss(data, state)
+      model_loss *=bc_wm_weight
     modules = [self.encoder, self.rssm, *self.heads.values()]
     metrics.update(self.model_opt(model_tape, model_loss, modules))
     return state, outputs, metrics
