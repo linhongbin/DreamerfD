@@ -94,6 +94,13 @@ def schedule(string, step):
       mix = tf.clip_by_value(step / duration, 0, 1)
       horizon = (1 - mix) * initial + mix * final
       return 1 - 1 / horizon
+    match = re.match(r'horizon_decay\((.+),(.+),(.+),(.+)\)', string)
+    if match:
+      initial, final, period, decay_rate = [float(group) for group in match.groups()]
+      assert initial>=final and decay_rate <1
+      decay = decay_rate**(step // period)
+      out = tf.clip_by_value(initial * decay, final, initial)
+      return out
     raise NotImplementedError(string)
 
 
