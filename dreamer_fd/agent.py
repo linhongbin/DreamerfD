@@ -79,8 +79,9 @@ class Agent(common.Module):
     
     if bc_data is not None and self.config.bc_wm_retrain:
       bc_wm_weight = common.schedule(self.config.bc_wm_weight, self.tfstep)
-      bc_state, bc_outputs, bc_mets = self.wm.train(bc_data, _bc_state if self.config.train_carrystate else None, bc_wm_weight=bc_wm_weight)
+      bc_state, bc_outputs, bc_mets = self.wm.train(bc_data, _bc_state if self.config.train_carrystate else None, wm_weight=bc_wm_weight)
       bc_mets = {'bc_retrain_' + k: v for k, v in bc_mets.items()}
+      bc_mets["bc_wm_weight"] = bc_wm_weight
       metrics.update(bc_mets)
     # if self.tfstep > self.config.train_only_wm_steps or force: 
     start = outputs['post']
@@ -149,12 +150,15 @@ class WorldModel(common.Module):
       assert name in self.heads, name
     self.model_opt = common.Optimizer('model', **config.model_opt)
 
-  def train(self, data, state=None,bc_wm_weight=1):
+  def train(self, data, state=None,wm_weight=1):
+    model_grad_scale = common.schedule(self.config.model_grad_scale, self.tfstep)
     with tf.GradientTape() as model_tape:
       model_loss, state, outputs, metrics = self.loss(data, state)
-      model_loss *=bc_wm_weight
+      model_loss *=wm_weight
+      model_loss*=model_grad_scale
     modules = [self.encoder, self.rssm, *self.heads.values()]
     metrics.update(self.model_opt(model_tape, model_loss, modules))
+    metrics.update({"model_grad_scale": model_grad_scale})
     return state, outputs, metrics
 
   def loss(self, data, state=None):
@@ -368,9 +372,16 @@ class ActorCritic(common.Module):
         actor_loss = like * bc_grad_weight + actor_loss 
         mets3['actor_bc_loss'] = like
         mets3['bc_grad_weight'] = bc_grad_weight
-        
+      
+      actor_grad_scale = common.schedule(self.config.actor_grad_scale, self.tfstep)
+      actor_loss *= actor_grad_scale
+      mets3['actor_grad_scale'] = actor_grad_scale 
     with tf.GradientTape() as critic_tape:
       critic_loss, mets4 = self.critic_loss(seq, target)
+      critic_grad_scale = common.schedule(self.config.critic_grad_scale, self.tfstep)
+      critic_loss *= critic_grad_scale
+      mets4['critic_grad_scale'] = critic_grad_scale 
+    
     metrics.update(self.actor_opt(actor_tape, actor_loss, self.actor))
     metrics.update(self.critic_opt(critic_tape, critic_loss, self.critic))
     metrics.update(**mets2, **mets3, **mets4)
@@ -410,13 +421,15 @@ class ActorCritic(common.Module):
     else:
       raise NotImplementedError(self.config.actor_grad)
     ent = policy.entropy()
-    ent_scale = common.schedule(self.config.actor_ent, self.tfstep)
-    objective = objective * self.config.actor_grad_weight
-    objective += ent_scale * ent
+    actor_ent_weight = common.schedule(self.config.actor_ent_weight, self.tfstep)
+    actor_rl_weight = common.schedule(self.config.actor_rl_weight, self.tfstep)
+    objective = objective * actor_rl_weight
+    objective += actor_ent_weight * ent
     weight = tf.stop_gradient(seq['weight'])
     actor_loss = -(weight[:-2] * objective).mean()
     metrics['actor_ent'] = ent.mean()
-    metrics['actor_ent_scale'] = ent_scale
+    metrics['actor_ent_weight'] = actor_ent_weight
+    metrics['actor_rl_weight'] = actor_rl_weight
     return actor_loss, metrics
 
   def critic_loss(self, seq, target):
